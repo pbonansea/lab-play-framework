@@ -1,0 +1,31 @@
+@(companies: List[Company], companyForm: Form[Company])
+
+@import helper._
+
+@main("Todo list") {
+    
+    <h1>@companies.size() task(s)</h1>
+    
+    <ul>
+        @for(company <- companies) {
+            <li>
+                @company.name
+                
+                @form(routes.CompanyController.deleteCompany(company.id.toInt)) {
+                    <input type="submit" value="Delete">
+                }
+            </li>
+        }
+    </ul>
+    
+    <h2>Add a new company</h2>
+    
+    @form(routes.CompanyController.newCompany()) {
+        
+        @inputText(companyForm("name")) 
+        
+        <input type="submit" value="Create">
+        
+    }
+    
+}
